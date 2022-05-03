@@ -15,7 +15,7 @@ namespace FarahProjest.Models
 
         public int ClusterId { get; set; }
         public Guid CourseId { get; set; }
-        public string NameCouse { get; set; }
+        public string NameCourse { get; set; }
         public string Description { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }

@@ -19,11 +19,11 @@ namespace FarahProjest.Models
         public string NiceName { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
-        public Guid? FamilyStatusId { get; set; }
+        public string FamilyStatusId { get; set; }
         public string MonthlyIncoming { get; set; }
         public string FamilyIncoming { get; set; }
         public string OtherIncoming { get; set; }
-        public Guid? DetectionReport { get; set; }
+        public string DetectionReport { get; set; }
         public DateTime? DetectionDate { get; set; }
         public string OrderSenderName { get; set; }
         public string OrderSenderAdj { get; set; }

@@ -19,7 +19,7 @@ namespace FarahProjest.Models
         public Guid SkillId { get; set; }
         public string VolunteerName { get; set; }
         public string Gender { get; set; }
-        public string Telephone { get; set; }
+        public string Mobile { get; set; }
         public string Phone { get; set; }
         public int? Age { get; set; }
         public string SocialStatus { get; set; }

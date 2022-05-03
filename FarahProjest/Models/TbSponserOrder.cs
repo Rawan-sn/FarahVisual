@@ -14,7 +14,7 @@ namespace FarahProjest.Models
         }
 
         public int ClusterId { get; set; }
-        public Guid OrderId { get; set; }
+        public Guid SponserOrderId { get; set; }
         public int? NumberOrder { get; set; }
         public Guid SponserId { get; set; }
         public Guid FamilyBeneficiaryId { get; set; }

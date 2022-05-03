@@ -9,7 +9,7 @@ namespace FarahProjest.Models
     {
         public int ClusterId { get; set; }
         public Guid OfferId { get; set; }
-        public Guid OrderId { get; set; }
+        public Guid SponserOrderId { get; set; }
         public DateTime? OfferDate { get; set; }
         public string TypeOffer { get; set; }
         public Guid? MaterialId { get; set; }
@@ -21,6 +21,6 @@ namespace FarahProjest.Models
         public bool? IsVisible { get; set; }
 
         public virtual TbMaterial Material { get; set; }
-        public virtual TbSponserOrder Order { get; set; }
+        public virtual TbSponserOrder SponserOrder { get; set; }
     }
 }

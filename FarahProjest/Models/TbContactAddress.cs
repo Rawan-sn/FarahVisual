@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using NetTopologySuite.Geometries;
 
 #nullable disable
 
@@ -12,6 +13,7 @@ namespace FarahProjest.Models
         public Guid? CountryId { get; set; }
         public Guid? CityId { get; set; }
         public string AddressDetail { get; set; }
+        public Geometry GeogInfo { get; set; }
         public string GeogText { get; set; }
         public byte? GeogZoom { get; set; }
     }

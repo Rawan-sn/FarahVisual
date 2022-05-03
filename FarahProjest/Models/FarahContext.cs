@@ -8,7 +8,7 @@ namespace FarahProjest.Models
 {
     public partial class FarahContext : DbContext
     {
-        
+
         public FarahContext(DbContextOptions<FarahContext> options)
             : base(options)
         {
@@ -61,10 +61,17 @@ namespace FarahProjest.Models
         public virtual DbSet<TbdimCountry> TbdimCountries { get; set; }
         public virtual DbSet<TbdimFileExtension> TbdimFileExtensions { get; set; }
         public virtual DbSet<TbdimProvince> TbdimProvinces { get; set; }
+        public virtual DbSet<VtbFile> VtbFiles { get; set; }
+        public virtual DbSet<VtbdimCity> VtbdimCities { get; set; }
+        public virtual DbSet<VwContact> VwContacts { get; set; }
+        public virtual DbSet<VwUser> VwUsers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+            if (!optionsBuilder.IsConfigured)
+            {
+          optionsBuilder.UseSqlServer("Server=DESKTOP-P3RNG7D\\SQLEXPRESS;Database=Farah;Trusted_Connection=True;Encrypt=false;");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -82,19 +89,17 @@ namespace FarahProjest.Models
 
                 entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
 
-                entity.Property(e => e.Description).HasMaxLength(100);
-
-                entity.Property(e => e.EndDate).HasColumnType("date");
+                entity.Property(e => e.EndDate).HasColumnType("datetime");
 
                 entity.Property(e => e.NameActivity)
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Place).HasMaxLength(50);
+                entity.Property(e => e.Place).HasMaxLength(100);
 
-                entity.Property(e => e.StartDate).HasColumnType("date");
+                entity.Property(e => e.StartDate).HasColumnType("datetime");
 
-                entity.Property(e => e.TargetActivity).HasMaxLength(50);
+                entity.Property(e => e.TargetActivity).HasMaxLength(100);
             });
 
             modelBuilder.Entity<TbAidBasket>(entity =>
@@ -105,9 +110,9 @@ namespace FarahProjest.Models
 
                 entity.Property(e => e.AidBasketId).ValueGeneratedNever();
 
-                entity.Property(e => e.BasketDate).HasColumnType("date");
+                entity.Property(e => e.BasketDate).HasColumnType("datetime");
 
-                entity.Property(e => e.BasketRecievedDate).HasColumnType("date");
+                entity.Property(e => e.BasketRecievedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
 
@@ -226,19 +231,17 @@ namespace FarahProjest.Models
 
                 entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
 
-                entity.Property(e => e.Description).HasMaxLength(100);
+                entity.Property(e => e.EndDate).HasColumnType("datetime");
 
-                entity.Property(e => e.EndDate).HasColumnType("date");
-
-                entity.Property(e => e.NameCouse)
+                entity.Property(e => e.NameCourse)
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Place).HasMaxLength(50);
+                entity.Property(e => e.Place).HasMaxLength(100);
 
-                entity.Property(e => e.StartDate).HasColumnType("date");
+                entity.Property(e => e.StartDate).HasColumnType("datetime");
 
-                entity.Property(e => e.TargetCourse).HasMaxLength(50);
+                entity.Property(e => e.TargetCourse).HasMaxLength(100);
             });
 
             modelBuilder.Entity<TbDemandOrder>(entity =>
@@ -250,15 +253,13 @@ namespace FarahProjest.Models
 
                 entity.Property(e => e.DemandOrderId).ValueGeneratedNever();
 
-                entity.Property(e => e.AcceptOrderDate).HasColumnType("date");
+                entity.Property(e => e.AcceptOrderDate).HasColumnType("datetime");
 
                 entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
 
-                entity.Property(e => e.DemandOrderDate).HasColumnType("date");
+                entity.Property(e => e.DemandOrderDate).HasColumnType("datetime");
 
-                entity.Property(e => e.DescriptionDemand).HasMaxLength(100);
-
-                entity.Property(e => e.RejectOrderDate).HasColumnType("date");
+                entity.Property(e => e.RejectOrderDate).HasColumnType("datetime");
 
                 entity.Property(e => e.StatusOrder).HasMaxLength(50);
 
@@ -288,7 +289,7 @@ namespace FarahProjest.Models
 
                 entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
 
-                entity.Property(e => e.RecievedDate).HasColumnType("date");
+                entity.Property(e => e.RecievedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.StatusDonation).HasMaxLength(50);
 
@@ -341,9 +342,11 @@ namespace FarahProjest.Models
 
                 entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
 
-                entity.Property(e => e.DetectionDate).HasColumnType("date");
+                entity.Property(e => e.DetectionDate).HasColumnType("datetime");
 
                 entity.Property(e => e.FamilyIncoming).HasMaxLength(300);
+
+                entity.Property(e => e.FamilyStatusId).HasMaxLength(100);
 
                 entity.Property(e => e.MonthlyIncoming).HasMaxLength(50);
 
@@ -365,7 +368,7 @@ namespace FarahProjest.Models
 
                 entity.Property(e => e.FamilyMemberId).ValueGeneratedNever();
 
-                entity.Property(e => e.BirthDate).HasColumnType("date");
+                entity.Property(e => e.BirthDate).HasColumnType("datetime");
 
                 entity.Property(e => e.ClassMember).HasMaxLength(50);
 
@@ -598,7 +601,7 @@ namespace FarahProjest.Models
 
                 entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
 
-                entity.Property(e => e.RecievedDate).HasColumnType("date");
+                entity.Property(e => e.RecievedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.RecievedName).HasMaxLength(50);
             });
@@ -612,8 +615,6 @@ namespace FarahProjest.Models
                 entity.Property(e => e.NotificationId).ValueGeneratedNever();
 
                 entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
-
-                entity.Property(e => e.NotificationDescription).HasMaxLength(50);
 
                 entity.Property(e => e.NotificationName).HasMaxLength(50);
             });
@@ -629,13 +630,11 @@ namespace FarahProjest.Models
 
                 entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
 
-                entity.Property(e => e.Description).HasMaxLength(50);
+                entity.Property(e => e.OfferAcceptDate).HasColumnType("datetime");
 
-                entity.Property(e => e.OfferAcceptDate).HasColumnType("date");
+                entity.Property(e => e.OfferDate).HasColumnType("datetime");
 
-                entity.Property(e => e.OfferDate).HasColumnType("date");
-
-                entity.Property(e => e.OfferRejectDate).HasColumnType("date");
+                entity.Property(e => e.OfferRejectDate).HasColumnType("datetime");
 
                 entity.Property(e => e.OfferStatus).HasMaxLength(50);
 
@@ -646,9 +645,9 @@ namespace FarahProjest.Models
                     .HasForeignKey(d => d.MaterialId)
                     .HasConstraintName("FK__tbOffer__Materia__11158940");
 
-                entity.HasOne(d => d.Order)
+                entity.HasOne(d => d.SponserOrder)
                     .WithMany(p => p.TbOffers)
-                    .HasForeignKey(d => d.OrderId)
+                    .HasForeignKey(d => d.SponserOrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__tbOffer__OrderId__10216507");
             });
@@ -725,41 +724,39 @@ namespace FarahProjest.Models
 
                 entity.Property(e => e.Gender).HasMaxLength(50);
 
+                entity.Property(e => e.Mobile).HasMaxLength(50);
+
                 entity.Property(e => e.Phone).HasMaxLength(50);
 
-                entity.Property(e => e.SponserAddress).HasMaxLength(50);
+                entity.Property(e => e.SponserAddress).HasMaxLength(100);
 
                 entity.Property(e => e.SponserName)
                     .IsRequired()
                     .HasMaxLength(50);
-
-                entity.Property(e => e.Telephone)
-                    .HasMaxLength(50)
-                    .HasColumnName("telephone");
             });
 
             modelBuilder.Entity<TbSponserOrder>(entity =>
             {
-                entity.HasKey(e => e.OrderId)
+                entity.HasKey(e => e.SponserOrderId)
                     .HasName("PK__tbSponse__C3905BCFA8C49A86");
 
                 entity.ToTable("tbSponserOrder");
 
-                entity.Property(e => e.OrderId).ValueGeneratedNever();
+                entity.Property(e => e.SponserOrderId).ValueGeneratedNever();
 
                 entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
 
-                entity.Property(e => e.EndingDate).HasColumnType("date");
+                entity.Property(e => e.EndingDate).HasColumnType("datetime");
 
                 entity.Property(e => e.SponserSalary).HasMaxLength(20);
 
                 entity.Property(e => e.SponserShipPeriod).HasMaxLength(50);
 
-                entity.Property(e => e.SponsorAcceptDate).HasColumnType("date");
+                entity.Property(e => e.SponsorAcceptDate).HasColumnType("datetime");
 
-                entity.Property(e => e.SponsorRejectDate).HasColumnType("date");
+                entity.Property(e => e.SponsorRejectDate).HasColumnType("datetime");
 
-                entity.Property(e => e.StartingDate).HasColumnType("date");
+                entity.Property(e => e.StartingDate).HasColumnType("datetime");
 
                 entity.Property(e => e.StatusOrder).HasMaxLength(50);
 
@@ -822,26 +819,22 @@ namespace FarahProjest.Models
 
             modelBuilder.Entity<TbUpdatingSponser>(entity =>
             {
-                entity.HasKey(e => e.UpdateId)
+                entity.HasKey(e => e.UpdatingSponserId)
                     .HasName("PK__tbUpdati__3C748E7AAD123013");
 
                 entity.ToTable("tbUpdatingSponser");
 
-                entity.Property(e => e.UpdateId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("updateId");
+                entity.Property(e => e.UpdatingSponserId).ValueGeneratedNever();
 
                 entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
 
-                entity.Property(e => e.EndingDate).HasColumnType("date");
+                entity.Property(e => e.EndingDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Signature).HasMaxLength(20);
+                entity.Property(e => e.StartingDate).HasColumnType("datetime");
 
-                entity.Property(e => e.StartingDate).HasColumnType("date");
-
-                entity.HasOne(d => d.Order)
+                entity.HasOne(d => d.SponserOrder)
                     .WithMany(p => p.TbUpdatingSponsers)
-                    .HasForeignKey(d => d.OrderId)
+                    .HasForeignKey(d => d.SponserOrderId)
                     .HasConstraintName("FK__tbUpdatin__Order__13F1F5EB");
             });
 
@@ -897,13 +890,11 @@ namespace FarahProjest.Models
 
                 entity.Property(e => e.Gender).HasMaxLength(50);
 
+                entity.Property(e => e.Mobile).HasMaxLength(50);
+
                 entity.Property(e => e.Phone).HasMaxLength(50);
 
                 entity.Property(e => e.SocialStatus).HasMaxLength(50);
-
-                entity.Property(e => e.Telephone)
-                    .HasMaxLength(50)
-                    .HasColumnName("telephone");
 
                 entity.Property(e => e.VolunteerName).HasMaxLength(50);
 
@@ -1083,6 +1074,108 @@ namespace FarahProjest.Models
                 entity.Property(e => e.ProvinceNameEn)
                     .IsRequired()
                     .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<VtbFile>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vtbFile");
+
+                entity.Property(e => e.Extension)
+                    .IsRequired()
+                    .HasMaxLength(10);
+            });
+
+            modelBuilder.Entity<VtbdimCity>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vtbdimCity");
+
+                entity.Property(e => e.CityAscii)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("City_ascii");
+
+                entity.Property(e => e.CityCode).HasMaxLength(5);
+
+                entity.Property(e => e.CityNameAr).HasMaxLength(256);
+
+                entity.Property(e => e.CityNameEn).HasMaxLength(256);
+
+                entity.Property(e => e.CountryNameAr).HasMaxLength(250);
+
+                entity.Property(e => e.CountryNameEn).HasMaxLength(250);
+
+                entity.Property(e => e.Lat)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("lat");
+
+                entity.Property(e => e.Lng)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("lng");
+
+                entity.Property(e => e.Pop)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("pop");
+
+                entity.Property(e => e.ProvinceNameAr)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.ProvinceNameEn)
+                    .IsRequired()
+                    .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<VwContact>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vwContact");
+
+                entity.Property(e => e.Extension).HasMaxLength(10);
+
+                entity.Property(e => e.FirstName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.LastName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<VwUser>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vwUser");
+
+                entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Extension)
+                    .IsRequired()
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.FirstName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.LastActivityDate).HasColumnType("datetime");
+
+                entity.Property(e => e.LastName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.MobileAlias).HasMaxLength(16);
+
+                entity.Property(e => e.UserName)
+                    .IsRequired()
+                    .HasMaxLength(256);
             });
 
             OnModelCreatingPartial(modelBuilder);
