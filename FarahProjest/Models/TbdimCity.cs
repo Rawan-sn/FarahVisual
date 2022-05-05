@@ -1,5 +1,4 @@
-﻿using NetTopologySuite.Geometries;
-using System;
+﻿using System;
 
 #nullable disable
 
@@ -14,7 +13,6 @@ namespace FarahProjest.Models
         public string CityNameAr { get; set; }
         public string CityAscii { get; set; }
         public string CityCode { get; set; }
-        public Geometry GeogInfo { get; set; }
         public string GeogText { get; set; }
         public byte? GeogZoom { get; set; }
         public string Lat { get; set; }

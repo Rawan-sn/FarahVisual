@@ -11,23 +11,23 @@ namespace FarahProjest.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriesController : ControllerBase
+    public class TbCategoriesController : ControllerBase
     {
         private readonly FarahContext _context;
 
-        public CategoriesController(FarahContext context)
+        public TbCategoriesController(FarahContext context)
         {
             _context = context;
         }
 
-        // GET: api/Categories
+        // GET: api/TbCategories
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TbCategory>>> GetTbCategories()
         {
             return await _context.TbCategories.ToListAsync();
         }
 
-        // GET: api/Categories/5
+        // GET: api/TbCategories/5
         [HttpGet("{id}")]
         public async Task<ActionResult<TbCategory>> GetTbCategory(Guid id)
         {
@@ -41,7 +41,7 @@ namespace FarahProjest.Controllers
             return tbCategory;
         }
 
-        // PUT: api/Categories/5
+        // PUT: api/TbCategories/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTbCategory(Guid id, TbCategory tbCategory)
@@ -72,7 +72,7 @@ namespace FarahProjest.Controllers
             return NoContent();
         }
 
-        // POST: api/Categories
+        // POST: api/TbCategories
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<TbCategory>> PostTbCategory(TbCategory tbCategory)
@@ -97,7 +97,7 @@ namespace FarahProjest.Controllers
             return CreatedAtAction("GetTbCategory", new { id = tbCategory.CategoryId }, tbCategory);
         }
 
-        // DELETE: api/Categories/5
+        // DELETE: api/TbCategories/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTbCategory(Guid id)
         {
