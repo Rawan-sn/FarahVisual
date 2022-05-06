@@ -28,6 +28,7 @@ namespace FarahProjest
             var connection = Configuration.GetConnectionString("Farah");
 
             services.AddDbContextPool<FarahContext>(options => options.UseSqlServer(connection)) ;
+            services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddRazorPages();
         }
 
@@ -50,12 +51,14 @@ namespace FarahProjest
 
             app.UseRouting();
 
+            app.UseMvc();
+
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapRazorPages();
-            });
+           // app.UseEndpoints(endpoints =>
+          //  {
+            //    endpoints.MapRazorPages();
+           // });
         }
     }
 }
