@@ -7149,19 +7149,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\asus\\.nuget\\packages\\": {}
+    "C:\\Users\\TOSHIBA\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\asus\\source\\repos\\FarahProjest\\FarahProjest\\FarahProjest.csproj",
+      "projectUniqueName": "E:\\GraduationProject\\FarahProject\\FarahVisual\\FarahProjest\\FarahProjest.csproj",
       "projectName": "FarahProjest",
-      "projectPath": "C:\\Users\\asus\\source\\repos\\FarahProjest\\FarahProjest\\FarahProjest.csproj",
-      "packagesPath": "C:\\Users\\asus\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\asus\\source\\repos\\FarahProjest\\FarahProjest\\obj\\",
+      "projectPath": "E:\\GraduationProject\\FarahProject\\FarahVisual\\FarahProjest\\FarahProjest.csproj",
+      "packagesPath": "C:\\Users\\TOSHIBA\\.nuget\\packages\\",
+      "outputPath": "E:\\GraduationProject\\FarahProject\\FarahVisual\\FarahProjest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\asus\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\TOSHIBA\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7218,6 +7218,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[5.0.16, 5.0.16]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"

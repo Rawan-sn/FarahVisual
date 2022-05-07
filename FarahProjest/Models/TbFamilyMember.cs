@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 #nullable disable
 
@@ -32,5 +33,11 @@ namespace FarahProjest.Models
 
         public virtual ICollection<TbMemberActivity> TbMemberActivities { get; set; }
         public virtual ICollection<TbMemberCourse> TbMemberCourses { get; set; }
+
+        internal Task<IEnumerable<TbFamilyMember>> ToListAsync()
+        {
+
+            throw new NotImplementedException();
+        }
     }
 }
