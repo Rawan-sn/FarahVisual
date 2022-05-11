@@ -71,8 +71,37 @@ namespace FarahProjest.Controllers
             return courses;
         }
 
+        [HttpGet("mother/{FamilyId:Guid}")]
+        public async Task<IEnumerable<TbFamilyMember>> GetMother(Guid FamilyId)
+        {
+            var mother = _context.TbFamilyMembers.AsQueryable();
 
-     
+            if (mother == null)
+            {
+                return await mother.ToListAsync();
+            }
+
+            mother = _context.TbFamilyMembers.Where(i => i.FamilyBeneficiaryId == FamilyId && i.TypeMember == "Mother");
+
+            return await mother.ToListAsync();
+        }
+
+        [HttpGet("MotherActivity/{FamilyMemberId:Guid}")]
+        public async Task<IEnumerable<TbActivity>> GetMotherActivity(Guid FamilyMemberId)
+        {
+            TbFamilyMember mother = await _context.TbFamilyMembers.FindAsync(FamilyMemberId);
+            TbActivity[] activites = { };
+            var MotherActivities = mother.TbMemberActivities;
+            //var ChildrenCourses =  myChild.TbMemberCourses;
+            foreach (TbMemberActivity MotherActivity in MotherActivities)
+            {
+                activites.Append(MotherActivity.Activity);
+            }
+            return activites;
+        }
+
+
+
 
         // PUT: api/FamilyMembers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
