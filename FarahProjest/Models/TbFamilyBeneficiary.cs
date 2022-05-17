@@ -15,7 +15,7 @@ namespace FarahProjest.Models
 
         public int ClusterId { get; set; }
         public Guid FamilyBeneficiaryId { get; set; }
-        public Guid? UserId { get; set; }
+        public Guid UserId { get; set; }
         public string NiceName { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }

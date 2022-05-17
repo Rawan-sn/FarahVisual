@@ -7,7 +7,7 @@ namespace FarahProjest.Models
 {
     public partial class TbdimCountry
     {
-        public int ClusterId { get; set; }
+        public byte ClusterId { get; set; }
         public Guid CountryId { get; set; }
         public string CountryNameEn { get; set; }
         public string CountryNameAr { get; set; }

@@ -17,6 +17,8 @@ namespace FarahProjest.Models
         public virtual DbSet<TbActivity> TbActivities { get; set; }
         public virtual DbSet<TbAidBasket> TbAidBaskets { get; set; }
         public virtual DbSet<TbAsset> TbAssets { get; set; }
+        public virtual DbSet<TbAttendceActivity> TbAttendceActivities { get; set; }
+        public virtual DbSet<TbAttendceCourse> TbAttendceCourses { get; set; }
         public virtual DbSet<TbBenefactor> TbBenefactors { get; set; }
         public virtual DbSet<TbCategory> TbCategories { get; set; }
         public virtual DbSet<TbContact> TbContacts { get; set; }
@@ -36,6 +38,7 @@ namespace FarahProjest.Models
         public virtual DbSet<TbGalleryPic> TbGalleryPics { get; set; }
         public virtual DbSet<TbGoogleUser> TbGoogleUsers { get; set; }
         public virtual DbSet<TbMaterial> TbMaterials { get; set; }
+        public virtual DbSet<TbMaterialAidbasket> TbMaterialAidbaskets { get; set; }
         public virtual DbSet<TbMemberActivity> TbMemberActivities { get; set; }
         public virtual DbSet<TbMemberCourse> TbMemberCourses { get; set; }
         public virtual DbSet<TbMembership> TbMemberships { get; set; }
@@ -49,6 +52,8 @@ namespace FarahProjest.Models
         public virtual DbSet<TbSponserOrder> TbSponserOrders { get; set; }
         public virtual DbSet<TbStore> TbStores { get; set; }
         public virtual DbSet<TbTempAuth> TbTempAuths { get; set; }
+        public virtual DbSet<TbTimeActivity> TbTimeActivities { get; set; }
+        public virtual DbSet<TbTimeCourse> TbTimeCourses { get; set; }
         public virtual DbSet<TbTimesZone> TbTimesZones { get; set; }
         public virtual DbSet<TbUpdatingSponser> TbUpdatingSponsers { get; set; }
         public virtual DbSet<TbUser> TbUsers { get; set; }
@@ -68,10 +73,7 @@ namespace FarahProjest.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-          optionsBuilder.UseSqlServer("Server=DESKTOP-P3RNG7D\\SQLEXPRESS;Database=Farah;Trusted_Connection=True;Encrypt=false;");
-            }
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -98,6 +100,8 @@ namespace FarahProjest.Models
                 entity.Property(e => e.Place).HasMaxLength(100);
 
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Status).HasMaxLength(50);
 
                 entity.Property(e => e.TargetActivity).HasMaxLength(100);
             });
@@ -132,6 +136,64 @@ namespace FarahProjest.Models
                 entity.Property(e => e.AssetName).HasMaxLength(50);
 
                 entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
+            });
+
+            modelBuilder.Entity<TbAttendceActivity>(entity =>
+            {
+                entity.HasKey(e => e.AttendceActivityId)
+                    .HasName("PK__tbAttend__06F459B0A0795C95");
+
+                entity.ToTable("tbAttendceActivity");
+
+                entity.Property(e => e.AttendceActivityId).ValueGeneratedNever();
+
+                entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.StatusAttendce).HasMaxLength(50);
+
+                entity.HasOne(d => d.MemberActivity)
+                    .WithMany(p => p.TbAttendceActivities)
+                    .HasForeignKey(d => d.MemberActivityId)
+                    .HasConstraintName("FK__tbAttendc__Membe__34E8D562");
+
+                entity.HasOne(d => d.TimeActivity)
+                    .WithMany(p => p.TbAttendceActivities)
+                    .HasForeignKey(d => d.TimeActivityId)
+                    .HasConstraintName("FK__tbAttendc__TimeA__36D11DD4");
+
+                entity.HasOne(d => d.VolunteerActivity)
+                    .WithMany(p => p.TbAttendceActivities)
+                    .HasForeignKey(d => d.VolunteerActivityId)
+                    .HasConstraintName("FK__tbAttendc__Volun__35DCF99B");
+            });
+
+            modelBuilder.Entity<TbAttendceCourse>(entity =>
+            {
+                entity.HasKey(e => e.AttendceCourseId)
+                    .HasName("PK__tbAttend__54C3D2CA62B2B373");
+
+                entity.ToTable("tbAttendceCourse");
+
+                entity.Property(e => e.AttendceCourseId).ValueGeneratedNever();
+
+                entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.StatusAttendce).HasMaxLength(50);
+
+                entity.HasOne(d => d.MemberCourse)
+                    .WithMany(p => p.TbAttendceCourses)
+                    .HasForeignKey(d => d.MemberCourseId)
+                    .HasConstraintName("FK__tbAttendc__Membe__1FEDB87C");
+
+                entity.HasOne(d => d.TimeCourse)
+                    .WithMany(p => p.TbAttendceCourses)
+                    .HasForeignKey(d => d.TimeCourseId)
+                    .HasConstraintName("FK__tbAttendc__TimeC__21D600EE");
+
+                entity.HasOne(d => d.VolunteerCourse)
+                    .WithMany(p => p.TbAttendceCourses)
+                    .HasForeignKey(d => d.VolunteerCourseId)
+                    .HasConstraintName("FK__tbAttendc__Volun__20E1DCB5");
             });
 
             modelBuilder.Entity<TbBenefactor>(entity =>
@@ -241,6 +303,8 @@ namespace FarahProjest.Models
 
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
 
+                entity.Property(e => e.Status).HasMaxLength(50);
+
                 entity.Property(e => e.TargetCourse).HasMaxLength(100);
             });
 
@@ -289,9 +353,15 @@ namespace FarahProjest.Models
 
                 entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
 
+                entity.Property(e => e.DonationDate).HasColumnType("date");
+
+                entity.Property(e => e.DonationDescription).HasMaxLength(100);
+
                 entity.Property(e => e.RecievedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.StatusDonation).HasMaxLength(50);
+
+                entity.Property(e => e.StatusOfMaterial).HasMaxLength(50);
 
                 entity.Property(e => e.TypeDonation).HasMaxLength(50);
             });
@@ -496,6 +566,28 @@ namespace FarahProjest.Models
                 entity.Property(e => e.MaterialStatus).HasMaxLength(50);
             });
 
+            modelBuilder.Entity<TbMaterialAidbasket>(entity =>
+            {
+                entity.HasKey(e => e.MaterialAidbasketId)
+                    .HasName("PK__tbMateri__A7A22608849266FF");
+
+                entity.ToTable("tbMaterialAidbasket");
+
+                entity.Property(e => e.MaterialAidbasketId).ValueGeneratedNever();
+
+                entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
+
+                entity.HasOne(d => d.AidBasket)
+                    .WithMany(p => p.TbMaterialAidbaskets)
+                    .HasForeignKey(d => d.AidBasketId)
+                    .HasConstraintName("FK__tbMateria__AidBa__47FBA9D6");
+
+                entity.HasOne(d => d.Material)
+                    .WithMany(p => p.TbMaterialAidbaskets)
+                    .HasForeignKey(d => d.MaterialId)
+                    .HasConstraintName("FK__tbMateria__Mater__48EFCE0F");
+            });
+
             modelBuilder.Entity<TbMemberActivity>(entity =>
             {
                 entity.HasKey(e => e.MemberActivityId)
@@ -508,6 +600,10 @@ namespace FarahProjest.Models
                 entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Result).HasMaxLength(50);
+
+                entity.Property(e => e.Status).HasMaxLength(50);
+
+                entity.Property(e => e.StatusResult).HasMaxLength(50);
 
                 entity.HasOne(d => d.Activity)
                     .WithMany(p => p.TbMemberActivities)
@@ -534,6 +630,10 @@ namespace FarahProjest.Models
                 entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Result).HasMaxLength(50);
+
+                entity.Property(e => e.Status).HasMaxLength(50);
+
+                entity.Property(e => e.StatusResult).HasMaxLength(50);
 
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.TbMemberCourses)
@@ -604,6 +704,8 @@ namespace FarahProjest.Models
                 entity.Property(e => e.RecievedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.RecievedName).HasMaxLength(50);
+
+                entity.Property(e => e.SalaryDate).HasColumnType("date");
             });
 
             modelBuilder.Entity<TbNotification>(entity =>
@@ -638,11 +740,14 @@ namespace FarahProjest.Models
 
                 entity.Property(e => e.OfferStatus).HasMaxLength(50);
 
+                entity.Property(e => e.StatusOfMaterial).HasMaxLength(50);
+
                 entity.Property(e => e.TypeOffer).HasMaxLength(50);
 
                 entity.HasOne(d => d.Material)
                     .WithMany(p => p.TbOffers)
                     .HasForeignKey(d => d.MaterialId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__tbOffer__Materia__11158940");
 
                 entity.HasOne(d => d.SponserOrder)
@@ -705,8 +810,9 @@ namespace FarahProjest.Models
 
                 entity.Property(e => e.SkillId).ValueGeneratedNever();
 
+                entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.NameSkill)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
             });
@@ -800,6 +906,48 @@ namespace FarahProjest.Models
                     .HasColumnName("EMail");
 
                 entity.Property(e => e.ExpiryDate).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<TbTimeActivity>(entity =>
+            {
+                entity.HasKey(e => e.TimeActivityId)
+                    .HasName("PK__tbTimeAc__3263243F72F24D7B");
+
+                entity.ToTable("tbTimeActivity");
+
+                entity.Property(e => e.TimeActivityId).ValueGeneratedNever();
+
+                entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.DateActivity).HasColumnType("date");
+
+                entity.Property(e => e.TimeActivity).HasMaxLength(50);
+
+                entity.HasOne(d => d.Activity)
+                    .WithMany(p => p.TbTimeActivities)
+                    .HasForeignKey(d => d.ActivityId)
+                    .HasConstraintName("FK__tbTimeAct__Activ__16644E42");
+            });
+
+            modelBuilder.Entity<TbTimeCourse>(entity =>
+            {
+                entity.HasKey(e => e.TimeCourseId)
+                    .HasName("PK__tbTimeCo__9B4EA6BBF246F3A4");
+
+                entity.ToTable("tbTimeCourse");
+
+                entity.Property(e => e.TimeCourseId).ValueGeneratedNever();
+
+                entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.DateCourse).HasColumnType("date");
+
+                entity.Property(e => e.TimeCourse).HasMaxLength(50);
+
+                entity.HasOne(d => d.Course)
+                    .WithMany(p => p.TbTimeCourses)
+                    .HasForeignKey(d => d.CourseId)
+                    .HasConstraintName("FK__tbTimeCou__Cours__1940BAED");
             });
 
             modelBuilder.Entity<TbTimesZone>(entity =>
@@ -901,7 +1049,6 @@ namespace FarahProjest.Models
                 entity.HasOne(d => d.Skill)
                     .WithMany(p => p.TbVolunteers)
                     .HasForeignKey(d => d.SkillId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__tbVolunte__Skill__74794A92");
             });
 
@@ -917,6 +1064,10 @@ namespace FarahProjest.Models
                 entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Result).HasMaxLength(50);
+
+                entity.Property(e => e.Status).HasMaxLength(50);
+
+                entity.Property(e => e.StatusResult).HasMaxLength(50);
 
                 entity.HasOne(d => d.Activity)
                     .WithMany(p => p.TbVolunteerActivities)
@@ -943,6 +1094,10 @@ namespace FarahProjest.Models
                 entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Result).HasMaxLength(50);
+
+                entity.Property(e => e.Status).HasMaxLength(50);
+
+                entity.Property(e => e.StatusResult).HasMaxLength(50);
 
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.TbVolunteerCourses)

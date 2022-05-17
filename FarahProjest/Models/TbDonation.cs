@@ -18,5 +18,8 @@ namespace FarahProjest.Models
         public int? DonationValue { get; set; }
         public int? DonationNumber { get; set; }
         public DateTime? RecievedDate { get; set; }
+        public DateTime? DonationDate { get; set; }
+        public string DonationDescription { get; set; }
+        public string StatusOfMaterial { get; set; }
     }
 }

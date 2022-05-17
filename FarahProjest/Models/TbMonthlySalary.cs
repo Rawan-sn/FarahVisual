@@ -16,5 +16,6 @@ namespace FarahProjest.Models
         public int? SalaryNumber { get; set; }
         public int? SalaryValue { get; set; }
         public Guid? SignaturePic { get; set; }
+        public DateTime? SalaryDate { get; set; }
     }
 }

@@ -10,6 +10,7 @@ namespace FarahProjest.Models
         public TbCourse()
         {
             TbMemberCourses = new HashSet<TbMemberCourse>();
+            TbTimeCourses = new HashSet<TbTimeCourse>();
             TbVolunteerCourses = new HashSet<TbVolunteerCourse>();
         }
 
@@ -23,8 +24,10 @@ namespace FarahProjest.Models
         public string Place { get; set; }
         public int? MaxMember { get; set; }
         public bool? IsVisible { get; set; }
+        public string Status { get; set; }
 
         public virtual ICollection<TbMemberCourse> TbMemberCourses { get; set; }
+        public virtual ICollection<TbTimeCourse> TbTimeCourses { get; set; }
         public virtual ICollection<TbVolunteerCourse> TbVolunteerCourses { get; set; }
     }
 }

@@ -9,6 +9,7 @@ namespace FarahProjest.Models
     {
         public TbMaterial()
         {
+            TbMaterialAidbaskets = new HashSet<TbMaterialAidbasket>();
             TbOffers = new HashSet<TbOffer>();
         }
 
@@ -19,6 +20,7 @@ namespace FarahProjest.Models
         public bool? IsVisible { get; set; }
         public string MaterialStatus { get; set; }
 
+        public virtual ICollection<TbMaterialAidbasket> TbMaterialAidbaskets { get; set; }
         public virtual ICollection<TbOffer> TbOffers { get; set; }
     }
 }

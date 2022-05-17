@@ -7149,19 +7149,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\TOSHIBA\\.nuget\\packages\\": {}
+    "C:\\Users\\0\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\GraduationProject\\FarahProject\\FarahVisual\\FarahProjest\\FarahProjest.csproj",
+      "projectUniqueName": "E:\\GraduationProject\\FarahVisual\\FarahProjest\\FarahProjest.csproj",
       "projectName": "FarahProjest",
-      "projectPath": "E:\\GraduationProject\\FarahProject\\FarahVisual\\FarahProjest\\FarahProjest.csproj",
-      "packagesPath": "C:\\Users\\TOSHIBA\\.nuget\\packages\\",
-      "outputPath": "E:\\GraduationProject\\FarahProject\\FarahVisual\\FarahProjest\\obj\\",
+      "projectPath": "E:\\GraduationProject\\FarahVisual\\FarahProjest\\FarahProjest.csproj",
+      "packagesPath": "C:\\Users\\0\\.nuget\\packages\\",
+      "outputPath": "E:\\GraduationProject\\FarahVisual\\FarahProjest\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\TOSHIBA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7218,12 +7223,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[5.0.16, 5.0.16]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -7232,7 +7231,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }

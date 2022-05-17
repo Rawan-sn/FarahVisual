@@ -19,6 +19,7 @@ namespace FarahProjest.Models
         public string DescriptionDemand { get; set; }
         public Guid? ReliabilityPhoto { get; set; }
         public bool? IsVisible { get; set; }
+        public int? NumberOrder { get; set; }
 
         public virtual TbBenefactor Benefactor { get; set; }
         public virtual TbFamilyBeneficiary FamilyBeneficiary { get; set; }

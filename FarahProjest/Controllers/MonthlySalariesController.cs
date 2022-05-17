@@ -46,20 +46,20 @@ namespace FarahProjest.Controllers
 
         // GET: api/MonthlySalaries/19b299f9-872f-4f71-b709-d233122719c5
         [HttpGet("{FamilyId:Guid}")]
-         public async Task<IEnumerable<TbMonthlySalary>> GetTbMonthlySalary(Guid FamilyId)
-         {
-             var myMonthlySalaries= _context.TbMonthlySalaries.AsQueryable();
+        public async Task<IEnumerable<TbMonthlySalary>> GetTbMonthlySalary(Guid FamilyId)
+        {
+            var myMonthlySalaries = _context.TbMonthlySalaries.AsQueryable();
 
-             if (myMonthlySalaries == null)
-             {
+            if (myMonthlySalaries == null)
+            {
 
-                 return await myMonthlySalaries.ToListAsync() ;
-             }
+                return await myMonthlySalaries.ToListAsync();
+            }
 
-             myMonthlySalaries=_context.TbMonthlySalaries.Where(i => i.FamilyBeneficiaryId == FamilyId);
+            myMonthlySalaries = _context.TbMonthlySalaries.Where(i => i.FamilyBeneficiaryId == FamilyId);
 
             return await myMonthlySalaries.ToListAsync();
-         }
+        }
 
         // PUT: api/MonthlySalaries/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

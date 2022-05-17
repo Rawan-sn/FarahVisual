@@ -58,18 +58,35 @@ namespace FarahProjest.Controllers
 
 
         [HttpGet("ChildCourse/{FamilyMemberId:Guid}")]
-        public async Task<IEnumerable<TbCourse>> GetCourseChildren(Guid FamilyMemberId)
+        public IActionResult GetChildCourse(Guid FamilyMemberId)
         {
-            TbFamilyMember myChild = await _context.TbFamilyMembers.FindAsync(FamilyMemberId);
-            TbCourse[] courses = { };
-           var ChildrenCourses =  myChild.TbMemberCourses;
-           //var ChildrenCourses =  myChild.TbMemberCourses;
-            foreach(TbMemberCourse ChildrenCourse in ChildrenCourses)
-            {
-                courses.Append(ChildrenCourse.Course);
-            }
-            return courses;
+            var data = _context.TbFamilyMembers.Where(m => m.FamilyMemberId == FamilyMemberId).Include(x => x.TbMemberCourses).ThenInclude(x => x.Course).Select(
+             x => new
+             {
+                 Name = x.MemberName ,
+                 BirthDate = x.BirthDate ,
+                 Class = x.ClassMember ,
+                 Age = x.Age ,
+                 gender = x.Gender,
+                 Courses = x.TbMemberCourses.Select(c => new
+                 {
+                     StatusCource = c.Course.Status,
+                     StatusChildofCourse = c.Status,
+                     NameCourse = c.Course.NameCourse ,
+                     DescriptionCourse = c.Course.Description,
+                     TargetCourse = c.Course.TargetCourse,
+                     PlaceCourse = c.Course.Place,
+                     StartDate = c.Course.StartDate ,
+                     EndDate = c.Course.EndDate ,
+                     Result = c.Result ,
+                     ResultStatus = c.StatusResult ,
+                    
+                 } ).ToList()
+             }
+             ) ;
+            return Ok(data);
         }
+    
 
         [HttpGet("mother/{FamilyId:Guid}")]
         public async Task<IEnumerable<TbFamilyMember>> GetMother(Guid FamilyId)
@@ -87,18 +104,35 @@ namespace FarahProjest.Controllers
         }
 
         [HttpGet("MotherActivity/{FamilyMemberId:Guid}")]
-        public async Task<IEnumerable<TbActivity>> GetMotherActivity(Guid FamilyMemberId)
+        public IActionResult GetMotherActivity(Guid FamilyMemberId)
         {
-            TbFamilyMember mother = await _context.TbFamilyMembers.FindAsync(FamilyMemberId);
-            TbActivity[] activites = { };
-            var MotherActivities = mother.TbMemberActivities;
-            //var ChildrenCourses =  myChild.TbMemberCourses;
-            foreach (TbMemberActivity MotherActivity in MotherActivities)
-            {
-                activites.Append(MotherActivity.Activity);
-            }
-            return activites;
+            var data = _context.TbFamilyMembers.Where(m => m.FamilyMemberId == FamilyMemberId).Include(x => x.TbMemberActivities).ThenInclude(x => x.Activity).Select(
+             x => new
+             {
+                 Name = x.MemberName,
+                 BirthDate = x.BirthDate,
+                 Class = x.ClassMember,
+                 Age = x.Age,
+                 gender = x.Gender,
+                 Courses = x.TbMemberActivities.Select(c => new
+                 {
+                     StatusCource = c.Activity.Status,
+                     StatusChildofActivity = c.Status,
+                     NameActivity = c.Activity.NameActivity,
+                     DescriptionActivity = c.Activity.Description,
+                     TargetActivity = c.Activity.TargetActivity,
+                     PlaceActivity = c.Activity.Place,
+                     StartDate = c.Activity.StartDate,
+                     EndDate = c.Activity.EndDate,
+                     Result = c.Result,
+                     ResultStatus = c.StatusResult,
+
+                 }).ToList()
+             }
+             );
+            return Ok(data);
         }
+
 
 
 

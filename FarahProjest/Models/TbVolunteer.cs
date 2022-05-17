@@ -16,7 +16,7 @@ namespace FarahProjest.Models
         public int ClusterId { get; set; }
         public Guid VolunteerId { get; set; }
         public Guid? UserId { get; set; }
-        public Guid SkillId { get; set; }
+        public Guid? SkillId { get; set; }
         public string VolunteerName { get; set; }
         public string Gender { get; set; }
         public string Mobile { get; set; }

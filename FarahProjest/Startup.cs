@@ -26,8 +26,10 @@ namespace FarahProjest
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = Configuration.GetConnectionString("Farah");
+            
+            //services.AddDbContextPool<FarahContext>(options => options.UseSqlServer(connection)) ;
+           services.AddDbContextPool<FarahContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Farah"))) ;
 
-            services.AddDbContextPool<FarahContext>(options => options.UseSqlServer(connection)) ;
             services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddRazorPages();
         }
