@@ -42,9 +42,9 @@ namespace FarahProjest.Controllers
         }
 
         [HttpGet("myChildren/{FamilyId:Guid}")]
-        public async Task<IEnumerable<TbFamilyMember>> GetMyChildren(Guid FamilyId)
+        public IActionResult GetMyChildren(Guid FamilyId , string Type)
         {
-            var myChildren = _context.TbFamilyMembers.AsQueryable();
+            /*var myChildren = _context.TbFamilyMembers.AsQueryable();
 
             if (myChildren == null)
             {
@@ -52,8 +52,58 @@ namespace FarahProjest.Controllers
             }
 
             myChildren = _context.TbFamilyMembers.Where(i => i.FamilyBeneficiaryId == FamilyId && i.TypeMember == "Children");
+            z
+            return await myChildren.ToListAsync();*/
 
-            return await myChildren.ToListAsync();
+
+            var data = _context.TbFamilyMembers.Where(m => m.FamilyBeneficiaryId == FamilyId && m.TypeMember == "Children" ).Include(x => x.TbMemberCourses).ThenInclude(x => x.Course).Select(
+             x => new
+             {
+                 MemberId = x.FamilyMemberId,
+                 FamilyId = x.FamilyBeneficiaryId,
+                 FileFamily = x.FileFamilyId,
+                 Name = x.MemberName,
+                 BirthDate = x.BirthDate,
+                 Class = x.ClassMember,
+                 Age = x.Age,
+                 gender = x.Gender,
+                 phone = x.Phone,
+                 IsSchool = x.IsSchool,
+                 IsUniversity = x.IsUniversity,
+                 SocialState = x.SocialState,
+                 HealthyState = x.HealthState,
+                 Courses = x.TbMemberCourses.Select(c => new
+                 {
+                     StatusCource = c.Course.Status,
+                     StatusChildofCourse = c.Status,
+                     NameCourse = c.Course.NameCourse,
+                     DescriptionCourse = c.Course.Description,
+                     TargetCourse = c.Course.TargetCourse,
+                     PlaceCourse = c.Course.Place,
+                     StartDate = c.Course.StartDate,
+                     EndDate = c.Course.EndDate,
+                     Result = c.Result,
+                     ResultStatus = c.StatusResult,
+
+                 }).ToList() ,
+                 Activities = x.TbMemberActivities.Select(c => new
+                 {
+                     StatusActivity = c.Activity.Status,
+                     StatusChildofActivity = c.Status,
+                     NameActivity = c.Activity.NameActivity,
+                     DescriptionActivity = c.Activity.Description,
+                     TargetActivity = c.Activity.TargetActivity,
+                     PlaceActivity = c.Activity.Place,
+                     StartDate = c.Activity.StartDate,
+                     EndDate = c.Activity.EndDate,
+                     Result = c.Result,
+                     ResultStatus = c.StatusResult,
+
+                 }).ToList()
+
+             }
+             );
+            return Ok(data);
         }
 
 
@@ -86,22 +136,76 @@ namespace FarahProjest.Controllers
              ) ;
             return Ok(data);
         }
-    
-
         [HttpGet("mother/{FamilyId:Guid}")]
-        public async Task<IEnumerable<TbFamilyMember>> GetMother(Guid FamilyId)
+        public IActionResult GetMother(Guid FamilyId, string Type)
         {
-            var mother = _context.TbFamilyMembers.AsQueryable();
+           
 
-            if (mother == null)
-            {
-                return await mother.ToListAsync();
-            }
+            var data = _context.TbFamilyMembers.Where(m => m.FamilyBeneficiaryId == FamilyId && m.TypeMember == "Children").Include(x => x.TbMemberCourses).ThenInclude(x => x.Course).Select(
+             x => new
+             {
+                 MemberId = x.FamilyMemberId,
+                 FamilyId = x.FamilyBeneficiaryId,
+                 FileFamily = x.FileFamilyId,
+                 Name = x.MemberName,
+                 BirthDate = x.BirthDate,
+                 Class = x.ClassMember,
+                 Age = x.Age,
+                 gender = x.Gender,
+                 phone = x.Phone,
+                 IsSchool = x.IsSchool,
+                 IsUniversity = x.IsUniversity,
+                 SocialState = x.SocialState,
+                 HealthyState = x.HealthState,
+                 Courses = x.TbMemberCourses.Select(c => new
+                 {
+                     StatusCource = c.Course.Status,
+                     StatusChildofCourse = c.Status,
+                     NameCourse = c.Course.NameCourse,
+                     DescriptionCourse = c.Course.Description,
+                     TargetCourse = c.Course.TargetCourse,
+                     PlaceCourse = c.Course.Place,
+                     StartDate = c.Course.StartDate,
+                     EndDate = c.Course.EndDate,
+                     Result = c.Result,
+                     ResultStatus = c.StatusResult,
 
-            mother = _context.TbFamilyMembers.Where(i => i.FamilyBeneficiaryId == FamilyId && i.TypeMember == "Mother");
+                 }).ToList(),
+                 Activities = x.TbMemberActivities.Select(c => new
+                 {
+                     StatusActivity = c.Activity.Status,
+                     StatusChildofActivity = c.Status,
+                     NameActivity = c.Activity.NameActivity,
+                     DescriptionActivity = c.Activity.Description,
+                     TargetActivity = c.Activity.TargetActivity,
+                     PlaceActivity = c.Activity.Place,
+                     StartDate = c.Activity.StartDate,
+                     EndDate = c.Activity.EndDate,
+                     Result = c.Result,
+                     ResultStatus = c.StatusResult,
 
-            return await mother.ToListAsync();
+                 }).ToList()
+
+             }
+             );
+            return Ok(data);
         }
+        /*  [HttpGet("mother/{FamilyId:Guid}")]
+          public async Task<IEnumerable<TbFamilyMember>> GetMother(Guid FamilyId)
+          {
+              *//*var mother = _context.TbFamilyMembers.AsQueryable();
+
+              if (mother == null)
+              {
+                  return await mother.ToListAsync();
+              }
+
+              mother = _context.TbFamilyMembers.Where(i => i.FamilyBeneficiaryId == FamilyId && i.TypeMember == "Mother");
+
+              return await mother.ToListAsync();*//*
+
+
+          }*/
 
         [HttpGet("MotherActivity/{FamilyMemberId:Guid}")]
         public IActionResult GetMotherActivity(Guid FamilyMemberId)
@@ -114,7 +218,7 @@ namespace FarahProjest.Controllers
                  Class = x.ClassMember,
                  Age = x.Age,
                  gender = x.Gender,
-                 Courses = x.TbMemberActivities.Select(c => new
+                 Activities = x.TbMemberActivities.Select(c => new
                  {
                      StatusCource = c.Activity.Status,
                      StatusChildofActivity = c.Status,
