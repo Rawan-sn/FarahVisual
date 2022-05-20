@@ -9,7 +9,11 @@ namespace FarahProjest.Models
     {
         public TbFamilyBeneficiary()
         {
+            TbAidBaskets = new HashSet<TbAidBasket>();
             TbDemandOrders = new HashSet<TbDemandOrder>();
+            TbFamilyAssets = new HashSet<TbFamilyAsset>();
+            TbFamilyMembers = new HashSet<TbFamilyMember>();
+            TbMonthlySalaries = new HashSet<TbMonthlySalary>();
             TbSponserOrders = new HashSet<TbSponserOrder>();
         }
 
@@ -29,7 +33,11 @@ namespace FarahProjest.Models
         public string OrderSenderAdj { get; set; }
         public bool? IsVisible { get; set; }
 
+        public virtual ICollection<TbAidBasket> TbAidBaskets { get; set; }
         public virtual ICollection<TbDemandOrder> TbDemandOrders { get; set; }
+        public virtual ICollection<TbFamilyAsset> TbFamilyAssets { get; set; }
+        public virtual ICollection<TbFamilyMember> TbFamilyMembers { get; set; }
+        public virtual ICollection<TbMonthlySalary> TbMonthlySalaries { get; set; }
         public virtual ICollection<TbSponserOrder> TbSponserOrders { get; set; }
     }
 }

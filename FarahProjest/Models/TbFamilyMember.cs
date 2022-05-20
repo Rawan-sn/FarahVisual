@@ -15,7 +15,6 @@ namespace FarahProjest.Models
 
         public int ClusterId { get; set; }
         public Guid FamilyMemberId { get; set; }
-        public Guid? FamilyBeneficiaryId { get; set; }
         public Guid? FileFamilyId { get; set; }
         public string MemberName { get; set; }
         public DateTime? BirthDate { get; set; }
@@ -29,7 +28,9 @@ namespace FarahProjest.Models
         public bool? IsUniversity { get; set; }
         public bool? IsVisible { get; set; }
         public int? Age { get; set; }
+        public Guid? FamilyBeneficiaryId { get; set; }
 
+        public virtual TbFamilyBeneficiary FamilyBeneficiary { get; set; }
         public virtual ICollection<TbMemberActivity> TbMemberActivities { get; set; }
         public virtual ICollection<TbMemberCourse> TbMemberCourses { get; set; }
     }

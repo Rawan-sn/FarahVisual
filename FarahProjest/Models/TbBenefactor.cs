@@ -10,6 +10,7 @@ namespace FarahProjest.Models
         public TbBenefactor()
         {
             TbDemandOrders = new HashSet<TbDemandOrder>();
+            TbDonations = new HashSet<TbDonation>();
         }
 
         public int ClusterId { get; set; }
@@ -24,5 +25,6 @@ namespace FarahProjest.Models
         public string Occupation { get; set; }
 
         public virtual ICollection<TbDemandOrder> TbDemandOrders { get; set; }
+        public virtual ICollection<TbDonation> TbDonations { get; set; }
     }
 }

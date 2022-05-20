@@ -8,7 +8,7 @@ namespace FarahProjest.Models
 {
     public partial class FarahContext : DbContext
     {
-
+       
         public FarahContext(DbContextOptions<FarahContext> options)
             : base(options)
         {
@@ -73,7 +73,11 @@ namespace FarahProjest.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=DESKTOP-B87CRPF;Database=Farah;Trusted_Connection=True;Encrypt=false;");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -123,6 +127,11 @@ namespace FarahProjest.Models
                 entity.Property(e => e.RecieverName).HasMaxLength(50);
 
                 entity.Property(e => e.StatusBasket).HasMaxLength(50);
+
+                entity.HasOne(d => d.FamilyBeneficiary)
+                    .WithMany(p => p.TbAidBaskets)
+                    .HasForeignKey(d => d.FamilyBeneficiaryId)
+                    .HasConstraintName("FK__tbAidBask__Famil__4CC05EF3");
             });
 
             modelBuilder.Entity<TbAsset>(entity =>
@@ -364,6 +373,16 @@ namespace FarahProjest.Models
                 entity.Property(e => e.StatusOfMaterial).HasMaxLength(50);
 
                 entity.Property(e => e.TypeDonation).HasMaxLength(50);
+
+                entity.HasOne(d => d.Benefactor)
+                    .WithMany(p => p.TbDonations)
+                    .HasForeignKey(d => d.BenefactorId)
+                    .HasConstraintName("FK__tbDonatio__Benef__49E3F248");
+
+                entity.HasOne(d => d.Material)
+                    .WithMany(p => p.TbDonations)
+                    .HasForeignKey(d => d.MaterialId)
+                    .HasConstraintName("FK__tbDonatio__Mater__4AD81681");
             });
 
             modelBuilder.Entity<TbFacebookUser>(entity =>
@@ -400,6 +419,16 @@ namespace FarahProjest.Models
                 entity.Property(e => e.ClusterId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.StatusAsset).HasMaxLength(50);
+
+                entity.HasOne(d => d.Asset)
+                    .WithMany(p => p.TbFamilyAssets)
+                    .HasForeignKey(d => d.AssetId)
+                    .HasConstraintName("FK__tbFamilyA__Asset__4F9CCB9E");
+
+                entity.HasOne(d => d.FamilyBeneficiary)
+                    .WithMany(p => p.TbFamilyAssets)
+                    .HasForeignKey(d => d.FamilyBeneficiaryId)
+                    .HasConstraintName("FK__tbFamilyA__Famil__5090EFD7");
             });
 
             modelBuilder.Entity<TbFamilyBeneficiary>(entity =>
@@ -455,6 +484,11 @@ namespace FarahProjest.Models
                 entity.Property(e => e.SocialState).HasMaxLength(50);
 
                 entity.Property(e => e.TypeMember).HasMaxLength(50);
+
+                entity.HasOne(d => d.FamilyBeneficiary)
+                    .WithMany(p => p.TbFamilyMembers)
+                    .HasForeignKey(d => d.FamilyBeneficiaryId)
+                    .HasConstraintName("FK__tbFamilyM__Famil__51851410");
             });
 
             modelBuilder.Entity<TbFamilyStatus>(entity =>
@@ -564,6 +598,11 @@ namespace FarahProjest.Models
                 entity.Property(e => e.MaterialName).HasMaxLength(50);
 
                 entity.Property(e => e.MaterialStatus).HasMaxLength(50);
+
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.TbMaterials)
+                    .HasForeignKey(d => d.CategoryId)
+                    .HasConstraintName("FK__tbMateria__Categ__4BCC3ABA");
             });
 
             modelBuilder.Entity<TbMaterialAidbasket>(entity =>
@@ -706,6 +745,11 @@ namespace FarahProjest.Models
                 entity.Property(e => e.RecievedName).HasMaxLength(50);
 
                 entity.Property(e => e.SalaryDate).HasColumnType("date");
+
+                entity.HasOne(d => d.FamilyBeneficiary)
+                    .WithMany(p => p.TbMonthlySalaries)
+                    .HasForeignKey(d => d.FamilyBeneficiaryId)
+                    .HasConstraintName("FK__tbMonthly__Famil__4DB4832C");
             });
 
             modelBuilder.Entity<TbNotification>(entity =>

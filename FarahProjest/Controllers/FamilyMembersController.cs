@@ -136,12 +136,44 @@ namespace FarahProjest.Controllers
              ) ;
             return Ok(data);
         }
+
+
+        [HttpGet("ChildActivity/{FamilyMemberId:Guid}")]
+        public IActionResult GetChildActivity(Guid FamilyMemberId)
+        {
+            var data = _context.TbFamilyMembers.Where(m => m.FamilyMemberId == FamilyMemberId).Include(x => x.TbMemberCourses).ThenInclude(x => x.Course).Select(
+             x => new
+             {
+                 Name = x.MemberName,
+                 BirthDate = x.BirthDate,
+                 Class = x.ClassMember,
+                 Age = x.Age,
+                 gender = x.Gender,
+                 Activities = x.TbMemberActivities.Select(c => new
+                 {
+                     StatusActivity = c.Activity.Status,
+                     StatusChildofActivity = c.Status,
+                     NameActivity = c.Activity.NameActivity,
+                     DescriptionActivity = c.Activity.Description,
+                     TargetActivity = c.Activity.TargetActivity,
+                     PlaceActivity = c.Activity.Place,
+                     StartDate = c.Activity.StartDate,
+                     EndDate = c.Activity.EndDate,
+                     Result = c.Result,
+                     ResultStatus = c.StatusResult,
+
+                 }).ToList()
+             }
+             );
+            return Ok(data);
+        }
+
         [HttpGet("mother/{FamilyId:Guid}")]
         public IActionResult GetMother(Guid FamilyId, string Type)
         {
            
 
-            var data = _context.TbFamilyMembers.Where(m => m.FamilyBeneficiaryId == FamilyId && m.TypeMember == "Children").Include(x => x.TbMemberCourses).ThenInclude(x => x.Course).Select(
+            var data = _context.TbFamilyMembers.Where(m => m.FamilyBeneficiaryId == FamilyId && m.TypeMember == "Mother").Include(x => x.TbMemberCourses).ThenInclude(x => x.Course).Select(
              x => new
              {
                  MemberId = x.FamilyMemberId,
